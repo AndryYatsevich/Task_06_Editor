@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<div>
+	<label for="text">Text</label><input type="text" name="text" id="text">
+	<label for="color">Color</label><input type="text" name="color" id="color">
+	<label for="marker">Marker</label>
+	<select id="marker">
+  		<option>circle</option>
+  		<option>disc</option>
+  		<option>square</option>
+	</select>
+</div>
+<div>
+	<button id="btnCreate" onclick="addLi()">Create</button><button id="btnChangeCurrent">Change current</button><button id="btnDeleteCurrent" onclick="deleteLi()">Delete current</button>
+</div>
+<div>
+	<ul id="list">
+
+	</ul>
+</div>
+<script type="text/javascript" src="js/script.js"></script>
+	
+</body>
+</html>

@@ -1,0 +1,26 @@
+@import '../../bower_components/bootstrap/dist/css/bootstrap.css';
+@import 'components/vars';
+
+html {
+  overflow-x: hidden;
+  background-color: $white;
+}
+
+body {
+  font-family: Roboto, sans-serif !important;
+  font-weight: 400;
+  color: $gray;
+  background: transparent;
+  position: relative;
+  min-width: 320px;
+}
+div {
+	padding: 5px;
+}
+
+@import 'media/media';
+
+.list{
+	border-radius: 4px;
+	padding: 3px;
+}
