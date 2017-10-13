@@ -19,17 +19,20 @@
 <div class="row">
 	<div class="col-xs-3">
 		<div class="row">
-			<div class="col-xs-12">	
+			<div class="col-xs-12 ">
+				<div class="left-menu-border">	
 				<canvas height='80' width='250' id='canvasLeft'>Обновите браузер</canvas>
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12">	
-				<label for="color">Введите код цвета </label><input type="text" name="color" id="color">
-				<label for="y">Введите Y: </label><input type="text" name="x" id="y">
-				<label for="height">Введите ширину: </label><input type="text" name="height" id="height">
-				<label for="width">Введите высоту: </label><input type="text" name="width" id="width">
-				<button class="btn btn-success" id="drawASquare" onclick="figureColor()">Cменить цвет</button>
+				<label for="color">Введите код цвета </label><input type="text" name="color" id="color" class="form-control">
+				
+
+				<button class="btn btn-success btn-custom" id="drawASquare" onclick="figureColor()" style="display: inline-block;">Cменить цвет</button>
+				<button class="btn btn-success btn-custom" id="drawASquare" onclick="randomColor()" style="display: inline-block;">Случайный цвет</button>
+				<div class="random-color" id="randomcolor"></div>
 			</div>
 		</div>
 		<div class="row">
@@ -41,7 +44,9 @@
 
 
 	<div class="col-xs-9">
+	<div class="left-menu-border">
 		<canvas height='80' width='495' id='example'>Обновите браузер</canvas>
+	</div>
 	</div>
 </div>
 <div class="row">

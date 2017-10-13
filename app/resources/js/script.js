@@ -4,13 +4,11 @@ var example = document.getElementById("example"),
             example.width  = 900;
             example.height = 500;
             ctx.strokeStyle = 'fff';
-            ctx.strokeRect(15, 15, 870, 460);
-            ctx.strokeRect(18, 18, 864, 454);
  var figure;
  var figures = [];
  var radius =  0;
  var color = '#000';
-
+/*
     for(var j=0; j < 160;j++){
         ctx.beginPath();
         var x = 250; // x coordinate
@@ -78,29 +76,26 @@ ctx.strokeStyle = '#00FF00'
 
       }    
 
-
+*/
 var canvasMenu = document.getElementById("canvasLeft"),
 	borderCanvasLeft = canvasMenu.getContext('2d');
 
 
-	canvasLeft.width = 280;
-	canvasLeft.height = 300;
-
-	borderCanvasLeft.strokeRect(0, 0, 280, 300);
-    borderCanvasLeft.strokeRect(4, 4, 272, 292);
+	canvasLeft.width = 250;
+	canvasLeft.height = 310;
 
     borderCanvasLeft.beginPath();
-    borderCanvasLeft.arc(100, 150, 50, 0, 260);
+    borderCanvasLeft.arc(125, 160, 50, 0, 260);
     borderCanvasLeft.stroke();
 
 
 	borderCanvasLeft.beginPath();
-	borderCanvasLeft.moveTo(30, 250);
-	borderCanvasLeft.lineTo(240, 250);
+	borderCanvasLeft.moveTo(20, 250);
+	borderCanvasLeft.lineTo(220, 250);
 	borderCanvasLeft.closePath();
     borderCanvasLeft.stroke();
 
-    borderCanvasLeft.strokeRect(30, 30, 220, 50);
+    borderCanvasLeft.strokeRect(20, 30, 200, 50);
     borderCanvasLeft.strokeStyle = '#8B0000';
 
 canvasMenu.addEventListener('click', activeFigure);
@@ -110,70 +105,64 @@ function activeFigure(e){
 	if (e.offsetY <= 95){
 		borderCanvasLeft.clearRect(0, 0, example.width, example.height);
 		borderCanvasLeft.strokeStyle = '#000000';
-		borderCanvasLeft.strokeRect(30, 30, 220, 50);
-		borderCanvasLeft.strokeRect(0, 0, 280, 300);
-	    borderCanvasLeft.strokeRect(4, 4, 272, 292);
+		borderCanvasLeft.strokeRect(20, 30, 200, 50);
 
 	    borderCanvasLeft.beginPath();
-	    borderCanvasLeft.arc(100, 150, 50, 0, 260);
+	    borderCanvasLeft.arc(125, 160, 50, 0, 260);
 	    borderCanvasLeft.stroke();
 
 
 		borderCanvasLeft.beginPath();
-		borderCanvasLeft.moveTo(30, 250);
-		borderCanvasLeft.lineTo(240, 250);
+		borderCanvasLeft.moveTo(20, 250);
+		borderCanvasLeft.lineTo(220, 250);
 		borderCanvasLeft.closePath();
 	    borderCanvasLeft.stroke();
 
-	    borderCanvasLeft.strokeStyle = '#8B0000';
+	    borderCanvasLeft.strokeStyle = '#FF0000';
 	   
-	    borderCanvasLeft.strokeRect(20, 20, 240, 70);
+	    borderCanvasLeft.strokeRect(15, 25, 210, 60);
 	    
 	    figure = Square;
 	} else if (e.offsetY <= 200) {
 		borderCanvasLeft.clearRect(0, 0, example.width, example.height);
 		borderCanvasLeft.strokeStyle = '#000000';
-		borderCanvasLeft.strokeRect(30, 30, 220, 50);
-		borderCanvasLeft.strokeRect(0, 0, 280, 300);
-	    borderCanvasLeft.strokeRect(4, 4, 272, 292);
+		borderCanvasLeft.strokeRect(20, 30, 200, 50);
 
 	    borderCanvasLeft.beginPath();
-	    borderCanvasLeft.arc(100, 150, 50, 0, 260);
+	    borderCanvasLeft.arc(125, 160, 50, 0, 260);
 	    borderCanvasLeft.stroke();
 
 
 		borderCanvasLeft.beginPath();
-		borderCanvasLeft.moveTo(30, 250);
-		borderCanvasLeft.lineTo(240, 250);
+		borderCanvasLeft.moveTo(20, 250);
+		borderCanvasLeft.lineTo(220, 250);
 		borderCanvasLeft.closePath();
 	    borderCanvasLeft.stroke();
 
-	    borderCanvasLeft.strokeStyle = '#8B0000';
-		borderCanvasLeft.strokeRect(40, 90, 120, 120);
+	    borderCanvasLeft.strokeStyle = '#FF0000';
+		borderCanvasLeft.strokeRect(70, 105, 110, 110);
 	    
 	    figure = Circle;
 	}
 	else if (e.offsetY <= 300) {
 		borderCanvasLeft.clearRect(0, 0, example.width, example.height);
 		borderCanvasLeft.strokeStyle = '#000000';
-		borderCanvasLeft.strokeRect(30, 30, 220, 50);
-		borderCanvasLeft.strokeRect(0, 0, 280, 300);
-	    borderCanvasLeft.strokeRect(4, 4, 272, 292);
+		borderCanvasLeft.strokeRect(20, 30, 200, 50);
 
 	    borderCanvasLeft.beginPath();
-	    borderCanvasLeft.arc(100, 150, 50, 0, 260);
+	    borderCanvasLeft.arc(125, 160, 50, 0, 260);
 	    borderCanvasLeft.stroke();
 
 
 		borderCanvasLeft.beginPath();
-		borderCanvasLeft.moveTo(30, 250);
-		borderCanvasLeft.lineTo(240, 250);
+		borderCanvasLeft.moveTo(20, 250);
+		borderCanvasLeft.lineTo(220, 250);
 		borderCanvasLeft.closePath();
 	    borderCanvasLeft.stroke();
 
-	    borderCanvasLeft.strokeStyle = '#8B0000';
+	    borderCanvasLeft.strokeStyle = '#FF0000';
 
-		borderCanvasLeft.strokeRect(20, 240, 250, 20);
+		borderCanvasLeft.strokeRect(15, 240, 210, 20);
 
 	    figure = Line;
 	}
@@ -189,7 +178,7 @@ example.addEventListener('mouseup', ClickCanvas3);
 var figureX, figureY, selected, isClicked;
 
 var i = 0;
-var colorValue;
+
 function ClickCanvas(e) {
 		
 		var obj = new figure(i++, e.offsetX, e.offsetY, undefined, undefined, color);
@@ -243,10 +232,6 @@ function ClickCanvas3(e){
 function clearCanvas(e){
 
 	ctx.clearRect(0, 0, example.width, example.height);
-	ctx.strokeStyle = '#000000';
-	ctx.strokeRect(15, 15, 870, 460);
-    ctx.strokeRect(18, 18, 864, 454);
-
 }
 
 
@@ -260,8 +245,10 @@ function pictureFigures(figures) {
 
 
 function figureColor(){
-	colorValue = document.getElementById('color');
+	var colorValue = document.getElementById('color');
 	color = colorValue.value;
+	var divRandomColor = document.getElementById('randomcolor');
+	divRandomColor.style.backgroundColor = color;
 }
 
 function inheritPrototype(child, parent){
@@ -269,9 +256,23 @@ function inheritPrototype(child, parent){
 	child.prototype.constructor = child;
 }
 
-var line1 = new Line('line', 10, 10, 50, 50);
-line1.render(ctx);
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
-var square1 = new Square('square', 50, 50, 150, 150);
-square1.render(ctx);
+function randomColor(){
+	var r = getRandomArbitrary(0, 256).toFixed(0);
+	var g = getRandomArbitrary(0, 256).toFixed(0);
+	var b = getRandomArbitrary(0, 256).toFixed(0);
+	console.log(r);
 
+	color = "RGB("+ r +"," + g + "," + b + ")";
+	var divRandomColor = document.getElementById('randomcolor');
+	divRandomColor.style.backgroundColor = color;
+	var colorValue = document.getElementById('color');
+	colorValue.value = color;
+	return color;
+	
+}
+
+console.log(color);
