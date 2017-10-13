@@ -9,6 +9,8 @@ var example = document.getElementById("example"),
  var figure;
  var figures = [];
  var radius =  0;
+ var color = '#000';
+
     for(var j=0; j < 160;j++){
         ctx.beginPath();
         var x = 250; // x coordinate
@@ -22,7 +24,7 @@ var example = document.getElementById("example"),
         ctx.stroke();
       }
 
-     ctx.strokeStyle = '#FF0000'
+     ctx.strokeStyle = '#FF0000';
  var radius2 = 0;
  var x2 = 350;
  var y2 = 50;
@@ -75,11 +77,7 @@ ctx.strokeStyle = '#00FF00'
 
 
       }    
-function figureColor(){
-	var color = document.getElementById('color');
-	ctx.strokeStyle = color.value;
-	ctx.fillStyle = color.value;
-}
+
 
 var canvasMenu = document.getElementById("canvasLeft"),
 	borderCanvasLeft = canvasMenu.getContext('2d');
@@ -190,18 +188,16 @@ example.addEventListener('mouseup', ClickCanvas3);
 
 var figureX, figureY, selected, isClicked;
 
-if (mousedown){
-	isClicked = true;
-} else {
-	isClicked = false;
-}
-
 var i = 0;
+var colorValue;
 function ClickCanvas(e) {
-		var obj = new figure(i++, e.offsetX, e.offsetY, undefined, undefined);
+		
+		var obj = new figure(i++, e.offsetX, e.offsetY, undefined, undefined, color);
 		selected = obj;
+		selected.color = color;
 		figures.push(obj);
 		obj.render(ctx);
+		isClicked = true;
 console.log(selected.x, selected.y, selected.height, selected.width);
 	/*	figureX = e.offsetX;
 		figureY = e.offsetY;
@@ -222,10 +218,14 @@ console.log(selected.x, selected.y, selected.height, selected.width);
 	}
 
 function ClickCanvas2(e){
-	//clearCanvas();
+	if(isClicked){
+		clearCanvas();
+	}
+	
 	if (figure == Square) {
 	selected.height = e.offsetY - selected.y;
 	selected.width = e.offsetX - selected.x;
+	
 } else if(figure == Circle){
 	selected.height = Math.abs((selected.x + selected.y) - (e.offsetX + e.offsetY));
 } else if(figure == Line){
@@ -256,6 +256,12 @@ function pictureFigures(figures) {
 		figures[i].render(ctx);
 
 	}
+}
+
+
+function figureColor(){
+	colorValue = document.getElementById('color');
+	color = colorValue.value;
 }
 
 function inheritPrototype(child, parent){
