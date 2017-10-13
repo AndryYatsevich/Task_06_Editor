@@ -36,13 +36,37 @@ body {
 }
 .random-color{
   border: 1px solid black;
-  border-radius: 3px;
+  border-radius: 4px;
   background-color: black;
     width: 28px;
     height: 34px;
     display: inline-block;
-    /* margin-top: 5px; */
+     margin-top: 5px;
+     margin-right: 1px; 
     /* margin-bottom: 5px; */
     position: relative;
+  }
+  .menu-color__item{
+      border: 1px solid black;
+  border-radius: 4px;
+  background-color: black;
+    width: 28px;
+    height: 34px;
+    display: inline-block;
+     margin-top: 5px;
+     margin-right: 1px; 
+    /* margin-bottom: 5px; */
+    position: relative;
+  }
+.menu-color button:first-child{
+  margin-left: 2px;
 
+}
+
+
+ul.color-menu li{
+  display: inline;
+  list-style-type: none;
+  margin: 5px;
+  padding: 5px;
 }

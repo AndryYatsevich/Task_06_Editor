@@ -1,7 +1,7 @@
 var example = document.getElementById("example"),
 	ctx = example.getContext('2d');
 	ctx2 = example.getContext('2d');
-            example.width  = 900;
+            example.width  = 847;
             example.height = 500;
             ctx.strokeStyle = 'fff';
  var figure;
