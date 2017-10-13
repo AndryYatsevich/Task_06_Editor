@@ -132,10 +132,6 @@ function activeFigure(e){
 	    borderCanvasLeft.strokeRect(20, 20, 240, 70);
 	    
 	    figure = Square;
-	    console.log(event.clientX);
-	    console.log(event.clientY);
-	    console.log(mousedown.clientX);
-
 	} else if (e.offsetY <= 200) {
 		borderCanvasLeft.clearRect(0, 0, example.width, example.height);
 		borderCanvasLeft.strokeStyle = '#000000';
@@ -188,34 +184,79 @@ function activeFigure(e){
 var heightSquare = document.getElementById("height"),
 	widthSquare = document.getElementById("width");
 
+example.addEventListener('mousedown', ClickCanvas);
+example.addEventListener('mousemove', ClickCanvas2);
+example.addEventListener('mouseup', ClickCanvas3);
 
-example.addEventListener('click', ClickCanvas);
+var figureX, figureY, selected, isClicked;
+
+if (mousedown){
+	isClicked = true;
+} else {
+	isClicked = false;
+}
+
 var i = 0;
 function ClickCanvas(e) {
-		
-		var obj = new figure(i++, e.offsetX, e.offsetY, heightSquare.value, widthSquare.value);
+		var obj = new figure(i++, e.offsetX, e.offsetY, undefined, undefined);
+		selected = obj;
 		figures.push(obj);
 		obj.render(ctx);
-		console.log(figures);
+console.log(selected.x, selected.y, selected.height, selected.width);
+	/*	figureX = e.offsetX;
+		figureY = e.offsetY;
 
-	/*	function drawASquare() {
-			console.log(e.offsetX);
-			console.log(e.offsetY);
-			ctx2.strokeRect(e.offsetX, e.offsetY, heightSquare.value, widthSquare.value);
-
-			ctx2.strokeStyle = '#8B0000';
-		}
-	drawASquare(); */
+	if (figure == Square) {
+		var obj = new figure(i++, figureX, figureY, e.offsetX - figureX, e.offsetY - figureY);
+		figures.push(obj);
+		obj.render(ctx);
+	} else if(figure == Line){
+		var obj = new figure(i++, figureX, figureY, e.offsetX, e.offsetY);
+		figures.push(obj);
+		obj.render(ctx);
+	} else if(figure == Circle){
+		var obj = new figure(i++, figureX, figureY, Math.abs(e.offsetX - figureX), Math.abs(e.offsetY - figureY));
+		figures.push(obj);
+		obj.render(ctx);
+	} */
 	}
-function clearCanvas(){
+
+function ClickCanvas2(e){
+	//clearCanvas();
+	if (figure == Square) {
+	selected.height = e.offsetY - selected.y;
+	selected.width = e.offsetX - selected.x;
+} else if(figure == Circle){
+	selected.height = Math.abs((selected.x + selected.y) - (e.offsetX + e.offsetY));
+} else if(figure == Line){
+	selected.height = e.offsetY;
+	selected.width = e.offsetX;
+}
+
+	pictureFigures(figures);
+}
+function ClickCanvas3(e){
+ selected = false;
+}
+
+
+function clearCanvas(e){
 
 	ctx.clearRect(0, 0, example.width, example.height);
 	ctx.strokeStyle = '#000000';
 	ctx.strokeRect(15, 15, 870, 460);
     ctx.strokeRect(18, 18, 864, 454);
-	figures = [];
+
 }
 
+
+
+function pictureFigures(figures) {
+	for (var i = 0; i < figures.length; i++){
+		figures[i].render(ctx);
+
+	}
+}
 
 function inheritPrototype(child, parent){
 	child.prototype = Object.create(parent.prototype)
@@ -224,7 +265,7 @@ function inheritPrototype(child, parent){
 
 var line1 = new Line('line', 10, 10, 50, 50);
 line1.render(ctx);
-console.log(Square)
+
 var square1 = new Square('square', 50, 50, 150, 150);
 square1.render(ctx);
 
