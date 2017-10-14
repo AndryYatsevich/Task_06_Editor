@@ -180,6 +180,17 @@ var figureX, figureY, selected, isClicked;
 var i = 0;
 
 function ClickCanvas(e) {
+	if(figure == 0){
+		for(var i = 0; i < figures.length; i++){
+			var figuresSelected = [];
+			console.log(figures[i].x, e.offsetX);
+			if(e.offsetX == figures[i].x && e.offsetY == figures[i].y){
+				figuresSelected.push(figures[i]);
+				console.log(figuresSelected);
+			}
+		}
+
+	} else {
 		
 		var obj = new figure(i++, e.offsetX, e.offsetY, undefined, undefined, color);
 		selected = obj;
@@ -187,7 +198,7 @@ function ClickCanvas(e) {
 		figures.push(obj);
 		obj.render(ctx);
 		isClicked = true;
-console.log(selected.x, selected.y, selected.height, selected.width);
+}
 	/*	figureX = e.offsetX;
 		figureY = e.offsetY;
 
@@ -208,7 +219,7 @@ console.log(selected.x, selected.y, selected.height, selected.width);
 
 function ClickCanvas2(e){
 	if(isClicked){
-		clearCanvas();
+		clearCanvasForRendering();
 	}
 	
 	if (figure == Square) {
@@ -228,10 +239,14 @@ function ClickCanvas3(e){
  selected = false;
 }
 
+function clearCanvasForRendering(e) {
+	ctx.clearRect(0, 0, example.width, example.height);
+}
 
 function clearCanvas(e){
 
 	ctx.clearRect(0, 0, example.width, example.height);
+	figures = [];
 }
 
 
@@ -271,8 +286,42 @@ function randomColor(){
 	divRandomColor.style.backgroundColor = color;
 	var colorValue = document.getElementById('color');
 	colorValue.value = color;
-	return color;
+	//return color;
 	
 }
 
-console.log(color);
+body.addEventListener('click', activLi);
+
+function activLi(e){
+	if(e.target.tagName == "BODY"){
+		console.log('kek');
+		borderCanvasLeft.clearRect(0, 0, example.width, example.height);
+		borderCanvasLeft.strokeStyle = '#000000';
+		borderCanvasLeft.strokeRect(20, 30, 200, 50);
+
+	    borderCanvasLeft.beginPath();
+	    borderCanvasLeft.arc(125, 160, 50, 0, 260);
+	    borderCanvasLeft.stroke();
+
+
+		borderCanvasLeft.beginPath();
+		borderCanvasLeft.moveTo(20, 250);
+		borderCanvasLeft.lineTo(220, 250);
+		borderCanvasLeft.closePath();
+	    borderCanvasLeft.stroke();
+
+	    figure = 0;
+	}
+	
+}
+
+function colorButtin(argument){
+	color = argument;
+	console.log(color);
+	var colorValue = document.getElementById('color');
+	colorValue.value = color;
+	var divRandomColor = document.getElementById('randomcolor');
+	divRandomColor.style.backgroundColor = color;
+	return color;
+}
+
