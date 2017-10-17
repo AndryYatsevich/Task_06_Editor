@@ -8,6 +8,7 @@ var figures = [];
 var color = '#000';
 var id = 0;
 var selected, isClicked, Figure;
+var figuresSelected = [];
 
 example.width = 847;
 example.height = 500;
@@ -107,11 +108,11 @@ example.addEventListener('mouseup', endDrawingAShape);
 function beginDrawingAShape(e) {
     if (Figure === 0) {
         for (var i = 0; i < figures.length; i++) {
-            var figuresSelected = [];
+
             console.log(figures[i].x, e.offsetX);
-            if (e.offsetX === figures[i].x && e.offsetY === figures[i].y) {
-                figuresSelected.push(figures[i]);
-                console.log(figuresSelected);
+            if (Math.pow((e.offsetX - figures[i].x),2) + Math.pow((e.offsetY - figures[i].y), 2) <= Math.pow(figures[i].height, 2) && (!selected || figures[i].title > selected.title)) {
+                selected = figures[i];
+                console.log(selected);
             }
         }
     } else {
