@@ -7,8 +7,7 @@ var borderCanvasLeft = canvasMenu.getContext('2d');
 var figures = [];
 var color = '#000';
 var id = 0;
-var selected, isClicked, Figure;
-var figuresSelected = [];
+var selected, isClicked, Figure, offsetX, offsetY;
 
 example.width = 847;
 example.height = 500;
@@ -106,14 +105,17 @@ example.addEventListener('mousemove', drawingSecondDot);
 example.addEventListener('mouseup', endDrawingAShape);
 
 function beginDrawingAShape(e) {
-    if (Figure === 0) {
+    if (!Figure) {
         for (var i = 0; i < figures.length; i++) {
-
-            console.log(figures[i].x, e.offsetX);
-            if (Math.pow((e.offsetX - figures[i].x),2) + Math.pow((e.offsetY - figures[i].y), 2) <= Math.pow(figures[i].height, 2) && (!selected || figures[i].title > selected.title)) {
+            if (figures[i].changeCollision(e.offsetX, e.offsetY) && (!selected || figures[i].title > selected.title)) {
                 selected = figures[i];
-                console.log(selected);
             }
+        }
+        if (selected) {
+            isClicked = true;
+            offsetX = e.offsetX - selected.x;
+            offsetY = e.offsetY - selected.y;
+            console.log(selected);
         }
     } else {
         var obj = new Figure(id++, e.offsetX, e.offsetY, null, null, color);
@@ -125,12 +127,17 @@ function beginDrawingAShape(e) {
     }
 }
 
-function drawingSecondDot(e) {
+function drawingSecondDot(e) {//todo: оптимизировать if
     if (isClicked) {
-        selected.changePosition(e.offsetX, e.offsetY);
-
-        clearCanvasForRendering();
-        drawingFigures(figures);
+        if (!Figure) {
+            selected.moveFigure(e.offsetX, e.offsetY, offsetX, offsetY);
+            clearCanvasForRendering();
+            drawingFigures(figures);
+        } else {
+            selected.changePosition(e.offsetX, e.offsetY);
+            clearCanvasForRendering();
+            drawingFigures(figures);
+        }
     }
 }
 
