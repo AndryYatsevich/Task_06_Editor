@@ -7,6 +7,10 @@ function Circle(title, x, y, width, height) {
 Circle.prototype.render = function (ctx) {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.height, 0, 360);
+    ctx.strokeStyle = 'RGB(0, 0, 0)';
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.height, 0, 360);
     ctx.fillStyle = this.color;
     ctx.fill();
 };

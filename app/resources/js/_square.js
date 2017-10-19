@@ -7,6 +7,8 @@ function Square(title, x, y, width, height) {
 Square.prototype.render = function (ctx) {
     ctx.fillStyle = this.color;
     ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.strokeStyle = 'RGB(0, 0, 0)';
+    ctx.strokeRect(this.x, this.y, this.width, this.height);
 };
 
 Square.prototype.changePosition = function (x, y) {

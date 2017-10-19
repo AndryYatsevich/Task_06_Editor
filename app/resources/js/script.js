@@ -9,6 +9,7 @@ var color = '#000';
 var id = 0;
 var selected, isClicked, Figure, offsetX, offsetY;
 
+
 example.width = 847;
 example.height = 500;
 ctx.strokeStyle = 'fff';
