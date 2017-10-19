@@ -29,4 +29,4 @@ Square.prototype.changeCollision = function (x, y) {
 Square.prototype.moveFigure = function (x, y, offsetX, offsetY) {
     this.x = x - offsetX;
     this.y = y - offsetY;
-}
+};

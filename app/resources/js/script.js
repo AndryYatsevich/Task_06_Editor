@@ -127,14 +127,14 @@ function beginDrawingAShape(e) {
     }
 }
 
-function drawingSecondDot(e) {//todo: оптимизировать if
+function drawingSecondDot(e) {
     if (isClicked) {
-        if (!Figure) {
-            selected.moveFigure(e.offsetX, e.offsetY, offsetX, offsetY);
+        if (Figure) {
+            selected.changePosition(e.offsetX, e.offsetY);
             clearCanvasForRendering();
             drawingFigures(figures);
         } else {
-            selected.changePosition(e.offsetX, e.offsetY);
+            selected.moveFigure(e.offsetX, e.offsetY, offsetX, offsetY);
             clearCanvasForRendering();
             drawingFigures(figures);
         }

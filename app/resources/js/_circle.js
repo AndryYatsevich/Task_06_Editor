@@ -24,4 +24,4 @@ Circle.prototype.moveFigure = function (x, y, offsetX, offsetY) {
     this.y = y - offsetY;
 
     console.log(this.x, this.y);
-}
+};
