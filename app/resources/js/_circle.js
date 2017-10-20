@@ -12,6 +12,7 @@ Circle.prototype.render = function (ctx) {
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.height, 0, 360);
     ctx.fillStyle = this.color;
+
     ctx.fill();
 };
 
@@ -26,6 +27,5 @@ Circle.prototype.changeCollision = function (x, y) {
 Circle.prototype.moveFigure = function (x, y, offsetX, offsetY) {
     this.x = x - offsetX;
     this.y = y - offsetY;
-
-    console.log(this.x, this.y);
 };
+

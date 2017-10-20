@@ -38,13 +38,13 @@ body {
   border: 1px solid black;
   border-radius: 4px;
   background-color: black;
-    width: 28px;
-    height: 34px;
-    display: inline-block;
-     margin-top: 5px;
-     margin-right: 1px; 
-    /* margin-bottom: 5px; */
-    position: relative;
+  width: 28px;
+  height: 34px;
+  top: 13px;
+  margin-right: 1px;
+  /* margin-bottom: 5px; */
+  position: relative;
+  display: inline-block;
   }
   .menu-color__item{
       border: 1px solid black;
@@ -54,7 +54,7 @@ body {
     height: 34px;
     display: inline-block;
      margin-top: 5px;
-     margin-right: 1px; 
+     margin-right: 1px;
     /* margin-bottom: 5px; */
     position: relative;
   }

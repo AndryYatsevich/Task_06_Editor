@@ -5,8 +5,10 @@ function Shape(title, x, y, width, height, color) {
     this.width = width;
     this.height = height;
     this.color = color;
+    this.isSelected = false;
 }
 
 Shape.prototype.getTitle = function () {
     return this.title;
 };
+

@@ -47,7 +47,7 @@ function lintScss() {
 }
 
 function watcher() {
-    gulp.watch(sassDevPattern, ['styles:serve']);
+    gulp.watch(sassDevPattern, ['styles']);
     gulp.watch(jsPattern, ['js']);
     gulp.watch(indexFile, ['inject:serve']);
 }

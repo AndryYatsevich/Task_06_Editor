@@ -20,30 +20,28 @@ Line.prototype.changePosition = function (x, y) {
 
 Line.prototype.changeCollision = function (x, y) {
     var offset = 10;
-    var minX = Math.min(this.x, this.height) - offset;
-    var maxX = Math.max(this.x, this.height) + offset;
-    var minY = Math.min(this.y, this.width) - offset;
-    var maxY = Math.max(this.y, this.width) + offset;
+    var minX = Math.min(this.x, this.width) - offset;
+    var maxX = Math.max(this.x, this.width) + offset;
+    var minY = Math.min(this.y, this.height) - offset;
+    var maxY = Math.max(this.y, this.height) + offset;
     var result;
-    console.log(minX, maxX, minY, maxY);
     if (x >= minX && x <= maxX && y >= minY && y <= maxY) {
 
-        result = ((this.y - y) * (this.height - this.x)) - ((this.x - x) * (this.width - this.y));
-        result = result / (Math.sqrt(Math.pow(this.height - this.x, 2) + Math.pow(this.width - this.y, 2)));
-
+        result = ((this.y - y) * (this.width - this.x)) - ((this.x - x) * (this.height - this.y));
+        result = result / (Math.sqrt(Math.pow(this.width - this.x, 2) + Math.pow(this.height - this.y, 2)));
         return Math.abs(result) <= offset;
     } else {
         return false;
     }
 };
 
-Line.prototype.moveFigure = function (x, y, offsetX, offsetY) {
-    var x2 = x - this.x;
-    var y2 = y - this.y;
 
-    this.x = x;
-    this.y = y;
-    this.width = x - this.width;
-    this.height = y - this.height;
-    console.log(offsetX, offsetY);
+Line.prototype.moveFigure = function (x, y, offsetX, offsetY) {
+    var x2 = x - (this.x + offsetX);
+    var y2 = y - (this.y + offsetY);
+
+    this.x += x2;
+    this.y += y2;
+    this.width += x2;
+    this.height += y2;
 };

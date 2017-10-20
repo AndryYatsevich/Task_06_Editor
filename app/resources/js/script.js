@@ -12,7 +12,7 @@ var selected, isClicked, Figure, offsetX, offsetY;
 
 example.width = 847;
 example.height = 500;
-ctx.strokeStyle = 'fff';
+ctx.strokeStyle = '#000000';
 
 canvasMenu.addEventListener('click', activeFigure);
 
@@ -105,9 +105,11 @@ example.addEventListener('mousedown', beginDrawingAShape);
 example.addEventListener('mousemove', drawingSecondDot);
 example.addEventListener('mouseup', endDrawingAShape);
 
-function beginDrawingAShape(e) {
+function beginDrawingAShape(e, event) {
     if (!Figure) {
+        selected = false;
         for (var i = 0; i < figures.length; i++) {
+            figures[i].isSelected = false;
             if (figures[i].changeCollision(e.offsetX, e.offsetY) && (!selected || figures[i].title > selected.title)) {
                 selected = figures[i];
             }
@@ -116,14 +118,17 @@ function beginDrawingAShape(e) {
             isClicked = true;
             offsetX = e.offsetX - selected.x;
             offsetY = e.offsetY - selected.y;
+            selected.isSelected = true;
+            drawingFigures(figures);
             console.log(selected);
+
         }
     } else {
         var obj = new Figure(id++, e.offsetX, e.offsetY, null, null, color);
         selected = obj;
-        selected.color = color;
+        selected.color = '#000000';
         figures.push(obj);
-        obj.render(ctx);
+        drawingFigures();
         isClicked = true;
     }
 }
@@ -132,40 +137,66 @@ function drawingSecondDot(e) {
     if (isClicked) {
         if (Figure) {
             selected.changePosition(e.offsetX, e.offsetY);
-            clearCanvasForRendering();
+
             drawingFigures(figures);
         } else {
             selected.moveFigure(e.offsetX, e.offsetY, offsetX, offsetY);
-            clearCanvasForRendering();
+
             drawingFigures(figures);
         }
     }
 }
 
 function endDrawingAShape() {
-    selected = false;
+    if (Figure) {
+        selected.isSelected = false;
+        selected = false;
+    }
     isClicked = false;
+    drawingFigures();
 }
 
-function clearCanvasForRendering() {
-    ctx.clearRect(0, 0, example.width, example.height);
-}
 
 function clearCanvas() { // eslint-disable-line
+    if (selected) {
+        var deleteFigure = figures.filter(function (obj) {
+            return obj.title !== selected.title;
+        });
+        figures = deleteFigure;
+        console.log(deleteFigure);
 
-    ctx.clearRect(0, 0, example.width, example.height);
-    figures = [];
+        drawingFigures(figures);
+
+    } else {
+        ctx.clearRect(0, 0, example.width, example.height);
+        figures = [];
+    }
 }
 
 function drawingFigures() {
+    ctx.clearRect(0, 0, example.width, example.height);
     for (var i = 0; i < figures.length; i++) {
+        if (figures[i].isSelected) {
+            ctx.shadowColor = "#000000";
+            ctx.shadowBlur = 20;
+        } else {
+            ctx.shadowBlur = 0;
+        }
+
         figures[i].render(ctx);
     }
 }
 
 function figureColor() { // eslint-disable-line
-    color = colorValue.value;
-    divRandomColor.style.backgroundColor = color;
+    if (selected) {
+        color = colorValue.value;
+        selected.color = color;
+
+        drawingFigures();
+    } else {
+        color = colorValue.value;
+        divRandomColor.style.backgroundColor = color;
+    }
 }
 
 function inheritPrototype(child, parent) { // eslint-disable-line
@@ -213,6 +244,9 @@ function noActiveFigure(e) {
         borderCanvasLeft.stroke();
 
         Figure = 0;
+        selected.isSelected = false;
+        selected = false;
+        drawingFigures();
     }
 }
 
@@ -221,6 +255,17 @@ function colorButton(argument) { // eslint-disable-line
 
     colorValue.value = color;
     divRandomColor.style.backgroundColor = color;
+}
+addEventListener('keydown', clearFigurePressDelete);
+
+function clearFigurePressDelete(event) {
+    if(selected && event.keyCode === 46) {
+        var deleteFigure = figures.filter(function (obj) {
+            return obj.title !== selected.title;
+        });
+        figures = deleteFigure;
+        drawingFigures(figures);
+    }
 }
 
 window.onload = init;
