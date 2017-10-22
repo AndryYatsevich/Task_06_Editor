@@ -1,7 +1,8 @@
 inheritPrototype(Square, Shape);
 
-function Square(title, x, y, width, height) {
-    Shape.call(this, title, x, y, width, height);
+function Square(title, x, y, width, height, figure) {
+    Shape.call(this, title, x, y, width, height, figure);
+    this.figure = 'Square';
 }
 
 Square.prototype.render = function (ctx) {

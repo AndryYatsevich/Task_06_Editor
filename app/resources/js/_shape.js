@@ -1,4 +1,4 @@
-function Shape(title, x, y, width, height, color) {
+function Shape(title, x, y, width, height, color, figure) {
     this.title = title;
     this.x = x;
     this.y = y;

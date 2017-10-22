@@ -60,11 +60,11 @@
 </div>
 <div class="row">
     <div class="col-xs-3">
-        <button class="btn btn-success btn-custom">Save to JSON</button>
-        <button class="btn btn-success btn-custom">Load from JSON</button>
+        <button class="btn btn-success btn-custom" onclick="saveToJSON()" id="savetojson">Save to JSON</button>
+        <button class="btn btn-success btn-custom" onclick="loadFromJSON()">Load from JSON</button>
     </div>
 	<div class="col-xs-9">
-        <input type="textarea" style="width:100%; margin-top:10px;">
+        <textarea style="width:100%; height: 200px;" rows="10" id="jsontext"></textarea>
 	</div>
 
 </div>

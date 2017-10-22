@@ -9,10 +9,8 @@ var color = '#000';
 var id = 0;
 var selected, isClicked, Figure, offsetX, offsetY;
 
-
 example.width = 847;
 example.height = 500;
-ctx.strokeStyle = '#000000';
 
 canvasMenu.addEventListener('click', activeFigure);
 
@@ -119,14 +117,14 @@ function beginDrawingAShape(e, event) {
             offsetX = e.offsetX - selected.x;
             offsetY = e.offsetY - selected.y;
             selected.isSelected = true;
-            drawingFigures(figures);
+            drawingFigures();
             console.log(selected);
 
         }
     } else {
         var obj = new Figure(id++, e.offsetX, e.offsetY, null, null, color);
         selected = obj;
-        selected.color = '#000000';
+        selected.color = color;
         figures.push(obj);
         drawingFigures();
         isClicked = true;
@@ -138,11 +136,11 @@ function drawingSecondDot(e) {
         if (Figure) {
             selected.changePosition(e.offsetX, e.offsetY);
 
-            drawingFigures(figures);
+            drawingFigures();
         } else {
             selected.moveFigure(e.offsetX, e.offsetY, offsetX, offsetY);
 
-            drawingFigures(figures);
+            drawingFigures();
         }
     }
 }
@@ -163,10 +161,7 @@ function clearCanvas() { // eslint-disable-line
             return obj.title !== selected.title;
         });
         figures = deleteFigure;
-        console.log(deleteFigure);
-
-        drawingFigures(figures);
-
+        drawingFigures();
     } else {
         ctx.clearRect(0, 0, example.width, example.height);
         figures = [];
@@ -227,7 +222,6 @@ body.addEventListener('click', noActiveFigure);
 
 function noActiveFigure(e) {
     if (e.target.tagName === 'BODY') {
-        console.log('kek');
         borderCanvasLeft.clearRect(0, 0, example.width, example.height);
         borderCanvasLeft.strokeStyle = '#000000';
         borderCanvasLeft.strokeRect(20, 30, 200, 50);
@@ -267,5 +261,29 @@ function clearFigurePressDelete(event) {
         drawingFigures(figures);
     }
 }
+
+function saveToJSON() {
+    var jsontext = document.getElementById('jsontext');
+    jsontext.value = JSON.stringify(figures);
+    
+}
+
+function loadFromJSON() {
+
+
+    var jsontext = document.getElementById('jsontext');
+    var figuresjson = JSON.parse(jsontext.value);
+    console.log(figuresjson);
+        for (var i = 0; i < figuresjson.length; i++){
+            Figure = figuresjson[i].figure;
+            
+            console.log(Figure);
+            var obj = new Figure(figuresjson[i].title, figuresjson[i].x, figuresjson[i].y, figuresjson[i].width, figuresjson[i].height, figuresjson[i].color, figuresjson[i].isSelected);
+            figures.push(obj);
+            figures[i].render(ctx);        
+        }
+    };
+    //drawingFigures();
+    console.log(figures);
 
 window.onload = init;
