@@ -19,7 +19,7 @@ var sassPattern = 'app/resources/sass/*.scss';
 var sassDevPattern = 'app/resources/sass/**/*.scss';
 var jsPattern = 'app/resources/js/*.js';
 var jsLibsPattern = 'app/resources/js/three/objects/*.js';
-var staticFiles = ['app/resources/js/three/three.min.js', 'app/resources/images/**/*.*', 'app/favicon.ico', 'app/resources/fonts/**/*.*', 'app/**/*.php'];
+var staticFiles = ['app/resources/js/**/*.*', 'app/resources/images/**/*.*', 'app/favicon.ico', 'app/resources/fonts/**/*.*', 'app/**/*.php'];
 var htmlFiles = ['app/**/*.html', '!app/bower_components/**/*.*', '!app/index.html'];
 var indexFile = 'app/index.html';
 
@@ -118,8 +118,8 @@ function injectServe() {
         ), {name: 'bower', transform: transformation.transform}))
         //.pipe(inject(makeJsLibs(), {name: 'libs', transform: transformation.transform}))
         .pipe(inject(es.merge(
-            makeStyles(),
-            makeJs()
+            makeStyles()
+           // makeJs()
         ), transformation))
         .pipe(gulp.dest(destination));
 }
@@ -146,8 +146,8 @@ function injectDep() {
         ), {name: 'bower', transform: transformation.transform}))
         // .pipe(inject(makeJsLibs(), {name: 'libs', transform: transformation.transform}))
         .pipe(inject(es.merge(
-            makeStyles(),
-            makeJs()
+            makeStyles()
+         //   makeJs()
         ), transformation))
         .pipe(gulp.dest(destination));
 }

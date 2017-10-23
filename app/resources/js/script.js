@@ -8,6 +8,7 @@ var figures = [];
 var color = '#000';
 var id = 0;
 var selected, isClicked, Figure, offsetX, offsetY;
+var CLASSES = {Square: Square, Line: Line, Circle: Circle};
 
 example.width = 847;
 example.height = 500;
@@ -103,7 +104,7 @@ example.addEventListener('mousedown', beginDrawingAShape);
 example.addEventListener('mousemove', drawingSecondDot);
 example.addEventListener('mouseup', endDrawingAShape);
 
-function beginDrawingAShape(e, event) {
+function beginDrawingAShape(e) {
     if (!Figure) {
         selected = false;
         for (var i = 0; i < figures.length; i++) {
@@ -118,8 +119,6 @@ function beginDrawingAShape(e, event) {
             offsetY = e.offsetY - selected.y;
             selected.isSelected = true;
             drawingFigures();
-            console.log(selected);
-
         }
     } else {
         var obj = new Figure(id++, e.offsetX, e.offsetY, null, null, color);
@@ -172,7 +171,7 @@ function drawingFigures() {
     ctx.clearRect(0, 0, example.width, example.height);
     for (var i = 0; i < figures.length; i++) {
         if (figures[i].isSelected) {
-            ctx.shadowColor = "#000000";
+            ctx.shadowColor = '#000000';
             ctx.shadowBlur = 20;
         } else {
             ctx.shadowBlur = 0;
@@ -250,10 +249,11 @@ function colorButton(argument) { // eslint-disable-line
     colorValue.value = color;
     divRandomColor.style.backgroundColor = color;
 }
+
 addEventListener('keydown', clearFigurePressDelete);
 
 function clearFigurePressDelete(event) {
-    if(selected && event.keyCode === 46) {
+    if (selected && event.keyCode === 46) {
         var deleteFigure = figures.filter(function (obj) {
             return obj.title !== selected.title;
         });
@@ -262,28 +262,23 @@ function clearFigurePressDelete(event) {
     }
 }
 
-function saveToJSON() {
+function saveToJSON() { // eslint-disable-line
     var jsontext = document.getElementById('jsontext');
     jsontext.value = JSON.stringify(figures);
-    
 }
 
-function loadFromJSON() {
-
-
+function loadFromJSON() { // eslint-disable-line
     var jsontext = document.getElementById('jsontext');
     var figuresjson = JSON.parse(jsontext.value);
     console.log(figuresjson);
-        for (var i = 0; i < figuresjson.length; i++){
-            Figure = figuresjson[i].figure;
-            
-            console.log(Figure);
-            var obj = new Figure(figuresjson[i].title, figuresjson[i].x, figuresjson[i].y, figuresjson[i].width, figuresjson[i].height, figuresjson[i].color, figuresjson[i].isSelected);
-            figures.push(obj);
-            figures[i].render(ctx);        
-        }
-    };
-    //drawingFigures();
-    console.log(figures);
+    for (var i = 0; i < figuresjson.length; i++) {
+        Figure = CLASSES[figuresjson[i].figure];
+        console.log(Figure);
+        var obj = new Figure(figuresjson[i].title, figuresjson[i].x, figuresjson[i].y, figuresjson[i].width, figuresjson[i].height, figuresjson[i].color, figuresjson[i].isSelected);
+        figures.push(obj);
+    }
+    Figure = false;
+    drawingFigures();
+}
 
 window.onload = init;
