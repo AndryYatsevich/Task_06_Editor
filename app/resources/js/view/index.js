@@ -4,8 +4,8 @@ MYAPP.view = (function () {
     var colorValue = document.getElementById('color');
     var divRandomColor = document.getElementById('randomcolor');
     var canvasMenu = document.getElementById('canvasLeft');
-    var borderCanvasLeft = canvasMenu.getContext('2d');
-    var m = MYAPP.model.selected;
+    var canvasMenuLeft = canvasMenu.getContext('2d');
+
 
     example.width = 847;
     example.height = 500;
@@ -13,65 +13,65 @@ MYAPP.view = (function () {
 
     function activeFigure(e) {
         if (e.offsetY <= 95) {
-            borderCanvasLeft.clearRect(0, 0, example.width, example.height);
-            borderCanvasLeft.strokeStyle = '#000000';
-            borderCanvasLeft.strokeRect(20, 30, 200, 50);
+            canvasMenuLeft.clearRect(0, 0, example.width, example.height);
+            canvasMenuLeft.strokeStyle = '#000000';
+            canvasMenuLeft.strokeRect(20, 30, 200, 50);
 
-            borderCanvasLeft.beginPath();
-            borderCanvasLeft.arc(125, 160, 50, 0, 260);
-            borderCanvasLeft.stroke();
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.arc(125, 160, 50, 0, 260);
+            canvasMenuLeft.stroke();
 
 
-            borderCanvasLeft.beginPath();
-            borderCanvasLeft.moveTo(20, 250);
-            borderCanvasLeft.lineTo(220, 250);
-            borderCanvasLeft.closePath();
-            borderCanvasLeft.stroke();
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.moveTo(20, 250);
+            canvasMenuLeft.lineTo(220, 250);
+            canvasMenuLeft.closePath();
+            canvasMenuLeft.stroke();
 
-            borderCanvasLeft.strokeStyle = '#FF0000';
+            canvasMenuLeft.strokeStyle = '#FF0000';
 
-            borderCanvasLeft.strokeRect(15, 25, 210, 60);
+            canvasMenuLeft.strokeRect(15, 25, 210, 60);
 
             Figure = Square;
         } else if (e.offsetY <= 200) {
-            borderCanvasLeft.clearRect(0, 0, example.width, example.height);
-            borderCanvasLeft.strokeStyle = '#000000';
-            borderCanvasLeft.strokeRect(20, 30, 200, 50);
+            canvasMenuLeft.clearRect(0, 0, example.width, example.height);
+            canvasMenuLeft.strokeStyle = '#000000';
+            canvasMenuLeft.strokeRect(20, 30, 200, 50);
 
-            borderCanvasLeft.beginPath();
-            borderCanvasLeft.arc(125, 160, 50, 0, 260);
-            borderCanvasLeft.stroke();
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.arc(125, 160, 50, 0, 260);
+            canvasMenuLeft.stroke();
 
 
-            borderCanvasLeft.beginPath();
-            borderCanvasLeft.moveTo(20, 250);
-            borderCanvasLeft.lineTo(220, 250);
-            borderCanvasLeft.closePath();
-            borderCanvasLeft.stroke();
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.moveTo(20, 250);
+            canvasMenuLeft.lineTo(220, 250);
+            canvasMenuLeft.closePath();
+            canvasMenuLeft.stroke();
 
-            borderCanvasLeft.strokeStyle = '#FF0000';
-            borderCanvasLeft.strokeRect(70, 105, 110, 110);
+            canvasMenuLeft.strokeStyle = '#FF0000';
+            canvasMenuLeft.strokeRect(70, 105, 110, 110);
 
             Figure = Circle;
         } else if (e.offsetY <= 300) {
-            borderCanvasLeft.clearRect(0, 0, example.width, example.height);
-            borderCanvasLeft.strokeStyle = '#000000';
-            borderCanvasLeft.strokeRect(20, 30, 200, 50);
+            canvasMenuLeft.clearRect(0, 0, example.width, example.height);
+            canvasMenuLeft.strokeStyle = '#000000';
+            canvasMenuLeft.strokeRect(20, 30, 200, 50);
 
-            borderCanvasLeft.beginPath();
-            borderCanvasLeft.arc(125, 160, 50, 0, 260);
-            borderCanvasLeft.stroke();
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.arc(125, 160, 50, 0, 260);
+            canvasMenuLeft.stroke();
 
 
-            borderCanvasLeft.beginPath();
-            borderCanvasLeft.moveTo(20, 250);
-            borderCanvasLeft.lineTo(220, 250);
-            borderCanvasLeft.closePath();
-            borderCanvasLeft.stroke();
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.moveTo(20, 250);
+            canvasMenuLeft.lineTo(220, 250);
+            canvasMenuLeft.closePath();
+            canvasMenuLeft.stroke();
 
-            borderCanvasLeft.strokeStyle = '#FF0000';
+            canvasMenuLeft.strokeStyle = '#FF0000';
 
-            borderCanvasLeft.strokeRect(15, 240, 210, 20);
+            canvasMenuLeft.strokeRect(15, 240, 210, 20);
 
             Figure = Line;
         }
@@ -141,11 +141,51 @@ MYAPP.view = (function () {
         }
     }
 
+    function noActiveFigure(e) {
+        if (e.target.tagName === 'BODY') {
+            canvasMenuLeft.clearRect(0, 0, example.width, example.height);
+            canvasMenuLeft.strokeStyle = '#000000';
+            canvasMenuLeft.strokeRect(20, 30, 200, 50);
+
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.arc(125, 160, 50, 0, 260);
+            canvasMenuLeft.stroke();
+
+
+            canvasMenuLeft.beginPath();
+            canvasMenuLeft.moveTo(20, 250);
+            canvasMenuLeft.lineTo(220, 250);
+            canvasMenuLeft.closePath();
+            canvasMenuLeft.stroke();
+
+            Figure = 0;
+            selected.isSelected = false;
+            selected = false;
+            drawingFigures();
+        }
+    }
+
+    function on() { // eslint-disable-line
+        canvasMenu.addEventListener('click', activeFigure);
+        example.addEventListener('mousedown', beginDrawingAShape);
+        example.addEventListener('mousemove', drawingSecondDot);
+        example.addEventListener('mouseup', endDrawingAShape);
+        body.addEventListener('click', noActiveFigure);
+        addEventListener('keydown', clearFigurePressDelete);
+    }
+
     return {
+        on: on,
         beginDrawingAShape: beginDrawingAShape,
         drawingSecondDot: drawingSecondDot,
         drawingFigures: drawingFigures,
-
+        activeFigure: activeFigure,
+        noActiveFigure: noActiveFigure,
+        example: example,
+        ctx: ctx,
+        canvasMenuLeft: canvasMenuLeft,
+        colorValue: colorValue,
+        divRandomColor: divRandomColor
     }
 })()
 

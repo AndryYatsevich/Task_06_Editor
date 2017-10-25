@@ -1,4 +1,9 @@
 MYAPP.controllers = (function () {
+    var color = MYAPP.model.color;
+    var figures = MYAPP.model.figures;
+    var selected = MYAPP.model.selected;
+    var colorValue = MYAPP.view.colorValue;
+    var divRandomColor = MYAPP.view.divRandomColor;
 
     function clearCanvas() { // eslint-disable-line
         if (selected) {
@@ -8,7 +13,7 @@ MYAPP.controllers = (function () {
             figures = deleteFigure;
             drawingFigures();
         } else {
-            ctx.clearRect(0, 0, example.width, example.height);
+            MYAPP.view.ctx.clearRect(0, 0, MYAPP.view.example.width, MYAPP.view.example.height);
             figures = [];
         }
     }
@@ -54,22 +59,24 @@ MYAPP.controllers = (function () {
         drawingFigures();
     }
 
-    function on() { // eslint-disable-line
-        canvasMenu.addEventListener('click', activeFigure);
-        example.addEventListener('mousedown', beginDrawingAShape);
-        example.addEventListener('mousemove', drawingSecondDot);
-        example.addEventListener('mouseup', endDrawingAShape);
-        body.addEventListener('click', noActiveFigure);
-        addEventListener('keydown', clearFigurePressDelete);
+    function colorHandler() { // eslint-disable-line
+        colorButton(getRandomColor());
+    }
+
+    function colorButton(argument) { // eslint-disable-line
+        color = argument;
+
+        colorValue.value = color;
+        divRandomColor.style.backgroundColor = color;
     }
 
     return {
-        on: on,
+
         loadFromJSON: loadFromJSON,
         saveToJSON: saveToJSON,
         clearFigurePressDelete: clearFigurePressDelete,
         figureColor: figureColor,
         clearCanvas: clearCanvas
-    }
+    };
 })();
 

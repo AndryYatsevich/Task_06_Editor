@@ -1,5 +1,5 @@
 MYAPP.constructors.Square = (function () {
-    MYAPP.utel.inheritPrototype(Square, MYAPP.constructors.Shape);
+    MYAPP.util.inheritPrototype(Square, MYAPP.constructors.Shape);
 
     function Square(title, x, y, width, height, figure) {
         Shape.call(this, title, x, y, width, height, figure);
