@@ -10,10 +10,8 @@ MYAPP.view = (function () {
     var clearCanvasBtn = document.getElementById('clearCanvasBtn');
     var loadFromJSONBtn = document.getElementById('loadFromJSONBtn');
     var saveToJSONBtn = document.getElementById('saveToJSONBtn');
-
-
-
-   // var menuColorBtnAttribute = menuColorBtn.getAttribute("data-color");
+    var menuColorBtns = document.getElementsByClassName('menu-color__item');
+    // var menuColorBtnAttribute = menuColorBtn.getAttribute("data-color");
     var m = MYAPP.model;
 
 
@@ -174,7 +172,8 @@ MYAPP.view = (function () {
             m.selected.isSelected = false;
             m.selected = false;
             drawingFigures();
-        };
+        }
+        ;
     }
 
     function on() { // eslint-disable-line
@@ -189,6 +188,9 @@ MYAPP.view = (function () {
         clearCanvasBtn.addEventListener('click', MYAPP.controllers.clearCanvas);
         saveToJSONBtn.addEventListener('click', MYAPP.controllers.saveToJSON);
         loadFromJSONBtn.addEventListener('click', MYAPP.controllers.loadFromJSON);
+        for (var i = 0; i < menuColorBtns.length; i++) {
+            menuColorBtns[i].addEventListener('click', MYAPP.controllers.filterMenuColorBtn);
+        }
 
         console.log('lol');
     }
@@ -205,7 +207,8 @@ MYAPP.view = (function () {
         canvasMenu: canvasMenu,
         canvasMenuLeft: canvasMenuLeft,
         colorValue: colorValue,
-        divRandomColor: divRandomColor
+        divRandomColor: divRandomColor,
+        menuColorBtns: menuColorBtns
     };
 })();
 

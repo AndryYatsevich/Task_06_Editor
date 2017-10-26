@@ -76,6 +76,12 @@ MYAPP.controllers = (function () {
         divRandomColor.style.backgroundColor = m.color;
     }
 
+    function filterMenuColorBtn() {
+        m.color = MYAPP.view.menuColorBtns.getAttribute('data-color');
+        colorButton(m.color);
+    }
+
+
     return {
         loadFromJSON: loadFromJSON,
         saveToJSON: saveToJSON,
@@ -83,7 +89,9 @@ MYAPP.controllers = (function () {
         figureColor: figureColor,
         clearCanvas: clearCanvas,
         colorHandler: colorHandler,
-        colorButton: colorButton
+        colorButton: colorButton,
+        filterMenuColorBtn: filterMenuColorBtn
     };
-})();
+})
+();
 
