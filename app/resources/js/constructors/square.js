@@ -2,7 +2,7 @@ MYAPP.constructors.Square = (function () {
     MYAPP.util.inheritPrototype(Square, MYAPP.constructors.Shape);
 
     function Square(title, x, y, width, height, figure) {
-        Shape.call(this, title, x, y, width, height, figure);
+        MYAPP.constructors.Shape.call(this, title, x, y, width, height, figure);
         this.figure = 'Square';
     }
 
@@ -34,4 +34,6 @@ MYAPP.constructors.Square = (function () {
         this.x = x - offsetX;
         this.y = y - offsetY;
     };
+
+    return Square;
 })();

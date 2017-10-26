@@ -2,7 +2,7 @@ MYAPP.constructors.Circle = (function () {
     MYAPP.util.inheritPrototype(Circle, MYAPP.constructors.Shape);
 
     function Circle(title, x, y, width, height, figure) {
-        Shape.call(this, title, x, y, width, height, figure);
+        MYAPP.constructors.Shape.call(this, title, x, y, width, height, figure);
         this.figure = 'Circle';
     }
 

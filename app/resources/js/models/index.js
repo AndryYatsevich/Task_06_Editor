@@ -1,5 +1,5 @@
 MYAPP.model = (function () {
-    return {
+     return {
         figures: [],
         color: '#000',
         id: 0,

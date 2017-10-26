@@ -4,6 +4,7 @@ MYAPP.controllers = (function () {
     var selected = MYAPP.model.selected;
     var colorValue = MYAPP.view.colorValue;
     var divRandomColor = MYAPP.view.divRandomColor;
+    var keyDelete = 46;
 
     function clearCanvas() { // eslint-disable-line
         if (selected) {
@@ -18,20 +19,22 @@ MYAPP.controllers = (function () {
         }
     }
 
-    function figureColor() { // eslint-disable-line
+    function figureColor() {     // eslint-disable-line
+        console.log('kek');
         if (selected) {
             color = colorValue.value;
             selected.color = color;
-
+            console.log('kek2');
             drawingFigures();
         } else {
             color = colorValue.value;
             divRandomColor.style.backgroundColor = color;
+            console.log('kek3');
         }
     }
 
     function clearFigurePressDelete(event) {
-        if (selected && event.keyCode === 46) {
+        if (selected && event.keyCode === keyDelete) {
             var deleteFigure = figures.filter(function (obj) {
                 return obj.title !== selected.title;
             });
@@ -61,6 +64,7 @@ MYAPP.controllers = (function () {
 
     function colorHandler() { // eslint-disable-line
         colorButton(getRandomColor());
+        console.log('kek');
     }
 
     function colorButton(argument) { // eslint-disable-line
@@ -71,12 +75,12 @@ MYAPP.controllers = (function () {
     }
 
     return {
-
         loadFromJSON: loadFromJSON,
         saveToJSON: saveToJSON,
         clearFigurePressDelete: clearFigurePressDelete,
         figureColor: figureColor,
-        clearCanvas: clearCanvas
+        clearCanvas: clearCanvas,
+        colorHandler: colorHandler
     };
 })();
 

@@ -2,7 +2,7 @@ MYAPP.constructors.Line = (function () {
     MYAPP.util.inheritPrototype(Line, MYAPP.constructors.Shape);
 
     function Line(title, x, y, width, height, figure) {
-        Shape.call(this, title, x, y, width, height, figure);
+        MYAPP.constructors.Shape.call(this, title, x, y, width, height, figure);
         this.figure = 'Line';
     }
 

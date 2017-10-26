@@ -5,7 +5,14 @@ MYAPP.view = (function () {
     var divRandomColor = document.getElementById('randomcolor');
     var canvasMenu = document.getElementById('canvasLeft');
     var canvasMenuLeft = canvasMenu.getContext('2d');
-
+    var changeColor = document.getElementById('changeColor');
+    var randomColorBtn = document.getElementById('randomColorBtn');
+    var isClicked = MYAPP.model.isClicked;
+    var color = MYAPP.model.color;
+    var figures = MYAPP.model.figures;
+    var selected = MYAPP.model.selected;
+    var Figure = MYAPP.model.Figure;
+    var id = MYAPP.model.id;
 
     example.width = 847;
     example.height = 500;
@@ -32,7 +39,7 @@ MYAPP.view = (function () {
 
             canvasMenuLeft.strokeRect(15, 25, 210, 60);
 
-            Figure = Square;
+            Figure = MYAPP.constructors.Square;
         } else if (e.offsetY <= 200) {
             canvasMenuLeft.clearRect(0, 0, example.width, example.height);
             canvasMenuLeft.strokeStyle = '#000000';
@@ -52,7 +59,7 @@ MYAPP.view = (function () {
             canvasMenuLeft.strokeStyle = '#FF0000';
             canvasMenuLeft.strokeRect(70, 105, 110, 110);
 
-            Figure = Circle;
+            Figure = MYAPP.constructors.Circle;
         } else if (e.offsetY <= 300) {
             canvasMenuLeft.clearRect(0, 0, example.width, example.height);
             canvasMenuLeft.strokeStyle = '#000000';
@@ -73,7 +80,7 @@ MYAPP.view = (function () {
 
             canvasMenuLeft.strokeRect(15, 240, 210, 20);
 
-            Figure = Line;
+            Figure = MYAPP.constructors.Line;
         }
     }
 
@@ -171,7 +178,10 @@ MYAPP.view = (function () {
         example.addEventListener('mousemove', drawingSecondDot);
         example.addEventListener('mouseup', endDrawingAShape);
         body.addEventListener('click', noActiveFigure);
-        addEventListener('keydown', clearFigurePressDelete);
+        changeColor.addEventListener('click', MYAPP.controllers.figureColor);
+        randomColorBtn.addEventListener('click', MYAPP.controllers.colorHandler);
+        //addEventListener('keydown', MYAPP.controller.clearFigurePressDelete);
+        console.log('on');
     }
 
     return {
@@ -183,6 +193,7 @@ MYAPP.view = (function () {
         noActiveFigure: noActiveFigure,
         example: example,
         ctx: ctx,
+        canvasMenu: canvasMenu,
         canvasMenuLeft: canvasMenuLeft,
         colorValue: colorValue,
         divRandomColor: divRandomColor
