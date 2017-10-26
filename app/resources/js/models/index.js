@@ -1,7 +1,7 @@
 MYAPP.model = (function () {
      return {
         figures: [],
-        color: '#000',
+        color: '#000000',
         id: 0,
         selected: false,
         isClicked: false,

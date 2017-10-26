@@ -28,6 +28,7 @@ var destination = 'public/';
 gulp.task('serve', ['build'/*, 'scss-lint'*/], watcher);
 gulp.task('build', ['move'], injectDep);
 gulp.task('move', ['move:html'], move);
+gulp.task('move:serve', move);
 gulp.task('move:html', ['clean'], moveHtml);
 gulp.task('scss-lint', lintScss);
 gulp.task('styles', makeStyles);
@@ -48,7 +49,7 @@ function lintScss() {
 
 function watcher() {
     gulp.watch(sassDevPattern, ['styles']);
-    gulp.watch(jsPattern, ['js']);
+    gulp.watch(staticFiles, ['move:serve']);
     gulp.watch(indexFile, ['inject:serve']);
 }
 
@@ -119,7 +120,7 @@ function injectServe() {
         //.pipe(inject(makeJsLibs(), {name: 'libs', transform: transformation.transform}))
         .pipe(inject(es.merge(
             makeStyles()
-           // makeJs()
+            // makeJs()
         ), transformation))
         .pipe(gulp.dest(destination));
 }
@@ -147,7 +148,7 @@ function injectDep() {
         // .pipe(inject(makeJsLibs(), {name: 'libs', transform: transformation.transform}))
         .pipe(inject(es.merge(
             makeStyles()
-         //   makeJs()
+            //   makeJs()
         ), transformation))
         .pipe(gulp.dest(destination));
 }

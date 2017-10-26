@@ -1,51 +1,50 @@
 MYAPP.controllers = (function () {
-    var color = MYAPP.model.color;
-    var figures = MYAPP.model.figures;
-    var selected = MYAPP.model.selected;
-    var colorValue = MYAPP.view.colorValue;
-    var divRandomColor = MYAPP.view.divRandomColor;
+    var m = MYAPP.model;
+
     var keyDelete = 46;
 
     function clearCanvas() { // eslint-disable-line
-        if (selected) {
-            var deleteFigure = figures.filter(function (obj) {
-                return obj.title !== selected.title;
+        if (m.selected) {
+            var deleteFigure = m.figures.filter(function (obj) {
+                return obj.title !== m.selected.title;
             });
-            figures = deleteFigure;
-            drawingFigures();
+            m.figures = deleteFigure;
+            MYAPP.view.drawingFigures();
         } else {
             MYAPP.view.ctx.clearRect(0, 0, MYAPP.view.example.width, MYAPP.view.example.height);
-            figures = [];
+            m.figures = [];
         }
     }
 
     function figureColor() {     // eslint-disable-line
         console.log('kek');
-        if (selected) {
-            color = colorValue.value;
-            selected.color = color;
+        var colorValue = MYAPP.view.colorValue;
+        var divRandomColor = MYAPP.view.divRandomColor;
+        if (MYAPP.model.selected) {
+            m.color = colorValue.value;
+            m.selected.color = m.color;
             console.log('kek2');
-            drawingFigures();
+            MYAPP.view.drawingFigures();
         } else {
-            color = colorValue.value;
-            divRandomColor.style.backgroundColor = color;
+            m.color = colorValue.value;
+            divRandomColor.style.backgroundColor = m.color;
             console.log('kek3');
         }
     }
 
     function clearFigurePressDelete(event) {
-        if (selected && event.keyCode === keyDelete) {
-            var deleteFigure = figures.filter(function (obj) {
-                return obj.title !== selected.title;
+        if (m.selected && event.keyCode === keyDelete) {
+            var deleteFigure = m.figures.filter(function (obj) {
+                return obj.title !== m.selected.title;
             });
-            figures = deleteFigure;
-            drawingFigures(figures);
+            m.figures = deleteFigure;
+            MYAPP.view.drawingFigures(m.figures);
         }
     }
 
     function saveToJSON() { // eslint-disable-line
         var jsontext = document.getElementById('jsontext');
-        jsontext.value = JSON.stringify(figures);
+        jsontext.value = JSON.stringify(m.figures);
     }
 
     function loadFromJSON() { // eslint-disable-line
@@ -53,25 +52,28 @@ MYAPP.controllers = (function () {
         var figuresjson = JSON.parse(jsontext.value);
         console.log(figuresjson);
         for (var i = 0; i < figuresjson.length; i++) {
-            Figure = CLASSES[figuresjson[i].figure];
+            Figure = MYAPP.constructors[figuresjson[i].figure];
             console.log(Figure);
             var obj = new Figure(figuresjson[i].title, figuresjson[i].x, figuresjson[i].y, figuresjson[i].width, figuresjson[i].height, figuresjson[i].color, figuresjson[i].isSelected);
-            figures.push(obj);
+            m.figures.push(obj);
         }
         Figure = false;
-        drawingFigures();
+        MYAPP.view.drawingFigures();
     }
 
     function colorHandler() { // eslint-disable-line
-        colorButton(getRandomColor());
-        console.log('kek');
+        colorButton(MYAPP.util.getRandomColor());
+
     }
 
     function colorButton(argument) { // eslint-disable-line
-        color = argument;
 
-        colorValue.value = color;
-        divRandomColor.style.backgroundColor = color;
+        var colorValue = MYAPP.view.colorValue;
+        var divRandomColor = MYAPP.view.divRandomColor;
+        m.color = argument;
+
+        colorValue.value = m.color;
+        divRandomColor.style.backgroundColor = m.color;
     }
 
     return {
@@ -80,7 +82,8 @@ MYAPP.controllers = (function () {
         clearFigurePressDelete: clearFigurePressDelete,
         figureColor: figureColor,
         clearCanvas: clearCanvas,
-        colorHandler: colorHandler
+        colorHandler: colorHandler,
+        colorButton: colorButton
     };
 })();
 
