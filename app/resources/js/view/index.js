@@ -189,7 +189,7 @@ MYAPP.view = (function () {
         saveToJSONBtn.addEventListener('click', MYAPP.controllers.saveToJSON);
         loadFromJSONBtn.addEventListener('click', MYAPP.controllers.loadFromJSON);
         for (var i = 0; i < menuColorBtns.length; i++) {
-            menuColorBtns[i].addEventListener('click', MYAPP.controllers.filterMenuColorBtn);
+            menuColorBtns[i].addEventListener('click', MYAPP.controllers.filterMenuColorBtn(menuColorBtns[i]));
         }
 
         console.log('lol');

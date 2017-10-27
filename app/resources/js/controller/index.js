@@ -63,7 +63,7 @@ MYAPP.controllers = (function () {
 
     function colorHandler() { // eslint-disable-line
         colorButton(MYAPP.util.getRandomColor());
-
+        MYAPP.view.drawingFigures();
     }
 
     function colorButton(argument) { // eslint-disable-line
@@ -76,9 +76,13 @@ MYAPP.controllers = (function () {
         divRandomColor.style.backgroundColor = m.color;
     }
 
-    function filterMenuColorBtn() {
-        m.color = MYAPP.view.menuColorBtns.getAttribute('data-color');
-        colorButton(m.color);
+    function filterMenuColorBtn(btn) {
+
+        return function () {
+
+            m.color = btn.getAttribute('data-color');
+            colorButton(m.color);
+        }
     }
 
 
